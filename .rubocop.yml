@@ -48,6 +48,12 @@ Naming/VariableNumber:
   EnforcedStyle: normalcase
   Severity: warning
 
+# Fern derives this generated entrypoint from the Ruby module name. Keep the
+# public constant as Insion while lib/insion.rb provides the idiomatic require.
+Naming/FileName:
+  Exclude:
+    - "lib/Insion.rb"
+
 Style/Documentation:
   Enabled: false
 

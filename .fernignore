@@ -1,5 +1,6 @@
 .fernignore
 .github/
+.rubocop.yml
 LICENSE.md
 custom.gemspec.rb
 lib/insion.rb

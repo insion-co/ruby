@@ -1,0 +1,4 @@
+.fernignore
+.github/
+LICENSE.md
+custom.gemspec.rb

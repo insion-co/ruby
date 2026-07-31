@@ -2,3 +2,5 @@
 .github/
 LICENSE.md
 custom.gemspec.rb
+lib/insion.rb
+lib/Insion/version.rb

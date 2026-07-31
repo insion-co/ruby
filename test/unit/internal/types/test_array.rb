@@ -2,9 +2,9 @@
 
 require "test_helper"
 
-describe InsionClient::Internal::Types::Array do
+describe Insion::Internal::Types::Array do
   module TestArray
-    StringArray = InsionClient::Internal::Types::Array[String]
+    StringArray = Insion::Internal::Types::Array[String]
   end
 
   describe "#initialize" do
@@ -19,7 +19,7 @@ describe InsionClient::Internal::Types::Array do
     end
 
     it "raises an error if not an array and strictness is on" do
-      assert_raises InsionClient::Internal::Errors::TypeError do
+      assert_raises Insion::Internal::Errors::TypeError do
         TestArray::StringArray.coerce(1, strict: true)
       end
     end
@@ -29,7 +29,7 @@ describe InsionClient::Internal::Types::Array do
     end
 
     it "raises an error if element of array is not coercable and strictness is on" do
-      assert_raises InsionClient::Internal::Errors::TypeError do
+      assert_raises Insion::Internal::Errors::TypeError do
         TestArray::StringArray.coerce([Object.new], strict: true)
       end
     end

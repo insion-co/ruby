@@ -2,10 +2,10 @@
 
 require "test_helper"
 
-describe InsionClient::Internal::Types::Enum do
+describe Insion::Internal::Types::Enum do
   module EnumTest
     module ExampleEnum
-      extend InsionClient::Internal::Types::Enum
+      extend Insion::Internal::Types::Enum
 
       FOO = :foo
       BAR = :bar
@@ -34,7 +34,7 @@ describe InsionClient::Internal::Types::Enum do
     end
 
     it "raises an error if value is not a member with strictness on" do
-      assert_raises InsionClient::Internal::Errors::TypeError do
+      assert_raises Insion::Internal::Errors::TypeError do
         EnumTest::ExampleEnum.coerce(1, strict: true)
       end
     end

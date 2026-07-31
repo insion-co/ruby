@@ -2,27 +2,27 @@
 
 require "test_helper"
 
-describe InsionClient::Internal::Types::Union do
-  class Rectangle < InsionClient::Internal::Types::Model
+describe Insion::Internal::Types::Union do
+  class Rectangle < Insion::Internal::Types::Model
     literal :type, "square"
 
     field :area, Float
   end
 
-  class Circle < InsionClient::Internal::Types::Model
+  class Circle < Insion::Internal::Types::Model
     literal :type, "circle"
 
     field :area, Float
   end
 
-  class Pineapple < InsionClient::Internal::Types::Model
+  class Pineapple < Insion::Internal::Types::Model
     literal :type, "pineapple"
 
     field :area, Float
   end
 
   module Shape
-    extend InsionClient::Internal::Types::Union
+    extend Insion::Internal::Types::Union
 
     discriminant :type
 
@@ -31,7 +31,7 @@ describe InsionClient::Internal::Types::Union do
   end
 
   module StringOrInteger
-    extend InsionClient::Internal::Types::Union
+    extend Insion::Internal::Types::Union
 
     member String
     member Integer

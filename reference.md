@@ -1,5 +1,5 @@
 # Reference
-<details><summary><code>client.<a href="/lib/InsionClient/client.rb">moderate_a_record</a>(request) -> InsionClient::Types::ModerateResponse</code></summary>
+<details><summary><code>client.<a href="/lib/Insion/client.rb">moderate_a_record</a>(request) -> Insion::Types::ModerateResponse</code></summary>
 <dl>
 <dd>
 
@@ -54,7 +54,7 @@ client.moderate_a_record(
 <dl>
 <dd>
 
-**request_options:** `InsionClient::RequestOptions` 
+**request_options:** `Insion::RequestOptions` 
     
 </dd>
 </dl>
@@ -66,7 +66,7 @@ client.moderate_a_record(
 </dl>
 </details>
 
-<details><summary><code>client.<a href="/lib/InsionClient/client.rb">ingest_a_record</a>(request) -> InsionClient::Types::IngestRecordResponse</code></summary>
+<details><summary><code>client.<a href="/lib/Insion/client.rb">ingest_a_record</a>(request) -> Insion::Types::IngestRecordResponse</code></summary>
 <dl>
 <dd>
 
@@ -113,7 +113,7 @@ client.ingest_a_record(
 <dl>
 <dd>
 
-**request:** `InsionClient::Types::RecordInput` 
+**request:** `Insion::Types::RecordInput` 
     
 </dd>
 </dl>
@@ -121,7 +121,7 @@ client.ingest_a_record(
 <dl>
 <dd>
 
-**request_options:** `InsionClient::RequestOptions` 
+**request_options:** `Insion::RequestOptions` 
     
 </dd>
 </dl>
@@ -133,7 +133,7 @@ client.ingest_a_record(
 </dl>
 </details>
 
-<details><summary><code>client.<a href="/lib/InsionClient/client.rb">delete_a_record</a>(request) -> InsionClient::Types::SuccessResponse</code></summary>
+<details><summary><code>client.<a href="/lib/Insion/client.rb">delete_a_record</a>(request) -> Insion::Types::SuccessResponse</code></summary>
 <dl>
 <dd>
 
@@ -183,7 +183,7 @@ client.delete_a_record(client_id: "clientId")
 <dl>
 <dd>
 
-**request_options:** `InsionClient::RequestOptions` 
+**request_options:** `Insion::RequestOptions` 
     
 </dd>
 </dl>
@@ -195,7 +195,7 @@ client.delete_a_record(client_id: "clientId")
 </dl>
 </details>
 
-<details><summary><code>client.<a href="/lib/InsionClient/client.rb">ingest_a_user</a>(request) -> InsionClient::Types::IngestUserResponse</code></summary>
+<details><summary><code>client.<a href="/lib/Insion/client.rb">ingest_a_user</a>(request) -> Insion::Types::IngestUserResponse</code></summary>
 <dl>
 <dd>
 
@@ -237,7 +237,7 @@ client.ingest_a_user(client_id: "clientId")
 <dl>
 <dd>
 
-**request:** `InsionClient::Types::UserInput` 
+**request:** `Insion::Types::UserInput` 
     
 </dd>
 </dl>
@@ -245,7 +245,7 @@ client.ingest_a_user(client_id: "clientId")
 <dl>
 <dd>
 
-**request_options:** `InsionClient::RequestOptions` 
+**request_options:** `Insion::RequestOptions` 
     
 </dd>
 </dl>
@@ -257,7 +257,7 @@ client.ingest_a_user(client_id: "clientId")
 </dl>
 </details>
 
-<details><summary><code>client.<a href="/lib/InsionClient/client.rb">list_records</a>() -> InsionClient::Types::ListRecordsResponse</code></summary>
+<details><summary><code>client.<a href="/lib/Insion/client.rb">list_records</a>() -> Insion::Types::ListRecordsResponse</code></summary>
 <dl>
 <dd>
 
@@ -347,7 +347,7 @@ client.list_records
 <dl>
 <dd>
 
-**status:** `InsionClient::Types::GetAPIV1RecordsRequestStatus` — Filter by moderation status.
+**status:** `Insion::Types::GetAPIV1RecordsRequestStatus` — Filter by moderation status.
     
 </dd>
 </dl>
@@ -355,7 +355,7 @@ client.list_records
 <dl>
 <dd>
 
-**request_options:** `InsionClient::RequestOptions` 
+**request_options:** `Insion::RequestOptions` 
     
 </dd>
 </dl>
@@ -367,7 +367,7 @@ client.list_records
 </dl>
 </details>
 
-<details><summary><code>client.<a href="/lib/InsionClient/client.rb">retrieve_a_record</a>(record_id:) -> InsionClient::Types::RecordResponse</code></summary>
+<details><summary><code>client.<a href="/lib/Insion/client.rb">retrieve_a_record</a>(record_id:) -> Insion::Types::RecordResponse</code></summary>
 <dl>
 <dd>
 
@@ -417,7 +417,7 @@ client.retrieve_a_record(record_id: "recordId")
 <dl>
 <dd>
 
-**request_options:** `InsionClient::RequestOptions` 
+**request_options:** `Insion::RequestOptions` 
     
 </dd>
 </dl>
@@ -429,7 +429,7 @@ client.retrieve_a_record(record_id: "recordId")
 </dl>
 </details>
 
-<details><summary><code>client.<a href="/lib/InsionClient/client.rb">list_users</a>() -> InsionClient::Types::ListUsersResponse</code></summary>
+<details><summary><code>client.<a href="/lib/Insion/client.rb">list_users</a>() -> Insion::Types::ListUsersResponse</code></summary>
 <dl>
 <dd>
 
@@ -511,7 +511,7 @@ client.list_users
 <dl>
 <dd>
 
-**status:** `InsionClient::Types::GetAPIV1UsersRequestStatus` — Filter by user action status.
+**status:** `Insion::Types::GetAPIV1UsersRequestStatus` — Filter by user action status.
     
 </dd>
 </dl>
@@ -527,7 +527,7 @@ client.list_users
 <dl>
 <dd>
 
-**request_options:** `InsionClient::RequestOptions` 
+**request_options:** `Insion::RequestOptions` 
     
 </dd>
 </dl>
@@ -539,7 +539,7 @@ client.list_users
 </dl>
 </details>
 
-<details><summary><code>client.<a href="/lib/InsionClient/client.rb">retrieve_a_user</a>(user_id:) -> InsionClient::Types::UserResponse</code></summary>
+<details><summary><code>client.<a href="/lib/Insion/client.rb">retrieve_a_user</a>(user_id:) -> Insion::Types::UserResponse</code></summary>
 <dl>
 <dd>
 
@@ -589,7 +589,7 @@ client.retrieve_a_user(user_id: "userId")
 <dl>
 <dd>
 
-**request_options:** `InsionClient::RequestOptions` 
+**request_options:** `Insion::RequestOptions` 
     
 </dd>
 </dl>
@@ -601,7 +601,7 @@ client.retrieve_a_user(user_id: "userId")
 </dl>
 </details>
 
-<details><summary><code>client.<a href="/lib/InsionClient/client.rb">create_an_appeal</a>(user_id:, request) -> InsionClient::Types::CreateAppealResponse</code></summary>
+<details><summary><code>client.<a href="/lib/Insion/client.rb">create_an_appeal</a>(user_id:, request) -> Insion::Types::CreateAppealResponse</code></summary>
 <dl>
 <dd>
 
@@ -662,7 +662,7 @@ client.create_an_appeal(
 <dl>
 <dd>
 
-**request_options:** `InsionClient::RequestOptions` 
+**request_options:** `Insion::RequestOptions` 
     
 </dd>
 </dl>

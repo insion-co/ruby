@@ -7,10 +7,24 @@
 # need to add it to the .fernignore file to prevent your changes from being overwritten.
 
 def add_custom_gemspec_data(spec)
-  # Example custom configurations (uncomment and modify as needed)
+  spec.name = "insion"
+  spec.authors = ["Insion"]
+  spec.email = ["support@insion.co"]
+  spec.summary = "Official Ruby client for the Insion API"
+  spec.description = "The official Insion Ruby SDK for moderation, records, users, and appeals."
+  spec.homepage = "https://insion.co/docs/sdks/ruby"
+  spec.license = "MIT"
 
-  # spec.authors = ["Your name"]
-  # spec.email = ["your.email@example.com"]
-  # spec.homepage = "https://github.com/your-org/insionclient-ruby"
-  # spec.license = "Your license"
+  spec.metadata["allowed_push_host"] = "https://rubygems.org"
+  spec.metadata["source_code_uri"] = "https://github.com/insion-co/ruby"
+  spec.metadata["bug_tracker_uri"] = "https://github.com/insion-co/ruby/issues"
+  spec.metadata["documentation_uri"] = "https://insion.co/docs/sdks/ruby"
+
+  spec.files = Dir[
+    "lib/**/*.rb",
+    "README.md",
+    "LICENSE.md",
+    "reference.md",
+    "changelog.md"
+  ]
 end

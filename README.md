@@ -26,9 +26,9 @@ A full reference for this library is available [here](./reference.md).
 Instantiate and use the client with the following:
 
 ```ruby
-require "insionclient"
+require "insion"
 
-client = InsionClient::Client.new(token: "<token>")
+client = Insion::Client.new(token: "<token>")
 
 client.moderate_a_record(
   client_id: "clientId",
@@ -43,18 +43,18 @@ client.moderate_a_record(
 This SDK allows you to configure different environments or custom URLs for API requests. You can either use the predefined environments or specify your own custom URL.
 ### Environments
 ```ruby
-require "InsionClient"
+require "Insion"
 
-InsionClient = InsionClient::Client.new(
-    base_url: InsionClient::Environment::DEFAULT
+Insion = Insion::Client.new(
+    base_url: Insion::Environment::DEFAULT
 )
 ```
 
 ### Custom URL
 ```ruby
-require "InsionClient"
+require "Insion"
 
-client = InsionClient::Client.new(
+client = Insion::Client.new(
     base_url: "https://example.com"
 )
 ```
@@ -64,23 +64,23 @@ client = InsionClient::Client.new(
 Failed API calls will raise errors that can be rescued from granularly.
 
 ```ruby
-require "InsionClient"
+require "Insion"
 
-client = InsionClient::Client.new(
+client = Insion::Client.new(
     base_url: "https://example.com"
 )
 
 begin
     result = client.moderate_a_record
-rescue InsionClient::Errors::TimeoutError
+rescue Insion::Errors::TimeoutError
     puts "API didn't respond before our timeout elapsed"
-rescue InsionClient::Errors::ServiceUnavailableError
+rescue Insion::Errors::ServiceUnavailableError
     puts "API returned status 503, is probably overloaded, try again later"
-rescue InsionClient::Errors::ServerError
+rescue Insion::Errors::ServerError
     puts "API returned some other 5xx status, this is probably a bug"
-rescue InsionClient::Errors::ResponseError => e
+rescue Insion::Errors::ResponseError => e
     puts "API returned an unexpected status other than 5xx: #{e.code} #{e.message}"
-rescue InsionClient::Errors::ApiError => e
+rescue Insion::Errors::ApiError => e
     puts "Some other error occurred when calling the API: #{e.message}"
 end
 ```
@@ -106,9 +106,9 @@ The `retryStatusCodes` configuration controls which [5XX](https://developer.mozi
 Use the `max_retries` option to configure this behavior.
 
 ```ruby
-require "InsionClient"
+require "Insion"
 
-client = InsionClient::Client.new(
+client = Insion::Client.new(
     base_url: "https://example.com",
     max_retries: 3  # Configure max retries (default is 2)
 )
@@ -119,7 +119,7 @@ client = InsionClient::Client.new(
 The SDK defaults to a 60 second timeout. Use the `timeout` option to configure this behavior.
 
 ```ruby
-require "InsionClient"
+require "Insion"
 
 response = client.moderate_a_record(
     ...,
@@ -132,7 +132,7 @@ response = client.moderate_a_record(
 If you would like to send additional headers as part of the request, use the `additional_headers` request option.
 
 ```ruby
-require "InsionClient"
+require "Insion"
 
 response = client.moderate_a_record(
     ...,
@@ -149,7 +149,7 @@ response = client.moderate_a_record(
 If you would like to send additional query parameters as part of the request, use the `additional_query_parameters` request option.
 
 ```ruby
-require "InsionClient"
+require "Insion"
 
 response = client.moderate_a_record(
     ...,

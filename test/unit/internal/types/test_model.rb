@@ -2,15 +2,15 @@
 
 require "test_helper"
 
-describe InsionClient::Internal::Types::Model do
+describe Insion::Internal::Types::Model do
   module StringInteger
-    extend InsionClient::Internal::Types::Union
+    extend Insion::Internal::Types::Union
 
     member String
     member Integer
   end
 
-  class ExampleModel < InsionClient::Internal::Types::Model
+  class ExampleModel < Insion::Internal::Types::Model
     field :name, String
     field :rating, StringInteger, optional: true
     field :year, Integer, optional: true, nullable: true, api_name: "yearOfRelease"
@@ -24,11 +24,11 @@ describe InsionClient::Internal::Types::Model do
     field :type, String, default: "example"
   end
 
-  class ExampleChild < InsionClient::Internal::Types::Model
+  class ExampleChild < Insion::Internal::Types::Model
     field :value, String
   end
 
-  class ExampleParent < InsionClient::Internal::Types::Model
+  class ExampleParent < Insion::Internal::Types::Model
     field :child, ExampleChild
   end
 
@@ -113,7 +113,7 @@ describe InsionClient::Internal::Types::Model do
   end
 
   describe "#inspect" do
-    class SensitiveModel < InsionClient::Internal::Types::Model
+    class SensitiveModel < Insion::Internal::Types::Model
       field :username, String
       field :password, String
       field :client_secret, String

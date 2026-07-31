@@ -1,75 +1,77 @@
-name: ci
+name: CI
 
-on: [push, pull_request]
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+permissions:
+  contents: read
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
-  lint:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout repo
-        uses: actions/checkout@v4
-
-      - name: Set up Ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: "3.3"
-
-      - name: Install dependencies
-        run: bundle install
-
-      - name: Run Rubocop
-        run: bundle exec rubocop
-
   test:
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        ruby-version:
+          - "3.3"
+          - "3.5"
 
     steps:
-      - name: Checkout repo
-        uses: actions/checkout@v4
+      - name: Check out repository
+        uses: actions/checkout@v6
 
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: "3.3"
+          ruby-version: ${{ matrix.ruby-version }}
+          bundler-cache: true
 
-      - name: Install dependencies
-        run: bundle install
+      - name: Lint
+        run: bundle exec rake lint
 
-      - name: Run Tests
+      - name: Test
         run: bundle exec rake test
 
-  publish:
-    name: Publish to RubyGems.org
+  package:
     runs-on: ubuntu-latest
-    needs: [lint, test]
-    if: github.event_name == 'push' && contains(github.ref, 'refs/tags/')
-
-    permissions:
-      id-token: write
-      contents: write
 
     steps:
-      - name: Checkout repo
-        uses: actions/checkout@v4
+      - name: Check out repository
+        uses: actions/checkout@v6
 
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: "3.3"
-
-      - name: Install dependencies
-        run: bundle install
-
-      - name: Configure RubyGems credentials
-        uses: rubygems/configure-rubygems-credentials@v1.0.0
+          bundler-cache: true
 
       - name: Build gem
-        run: bundle exec rake build
+        run: |
+          mkdir -p pkg
+          gem build Insion.gemspec --output "pkg/insion-$(ruby -e 'print Gem::Specification.load("Insion.gemspec").version').gem"
 
-      - name: Push gem to RubyGems
-        run: gem push pkg/*.gem
+      - name: Verify package metadata and contents
+        run: |
+          ruby -rrubygems/package -e '
+            spec = Gem::Package.new(Dir["pkg/*.gem"].fetch(0)).spec
+            abort "unexpected gem name" unless spec.name == "insion"
+            abort "unexpected gem version" unless spec.version.to_s == "1.0.1"
+            abort "missing MIT license" unless spec.licenses.include?("MIT")
+            abort "unexpected homepage" unless spec.homepage == "https://insion.co/docs/sdks/ruby"
+            abort "unexpected Ruby requirement" unless spec.required_ruby_version.to_s == ">= 3.3.0"
+            abort "development files packaged" if spec.files.any? { |file| file.start_with?(".fern/", ".github/", "test/") }
+            abort "entrypoint missing" unless spec.files.include?("lib/insion.rb")
+            abort "license missing" unless spec.files.include?("LICENSE.md")
+          '
+
+      - name: Test packaged gem
+        run: |
+          gem install pkg/*.gem --install-dir /tmp/insion-gems --no-document
+          GEM_HOME=/tmp/insion-gems ruby -e 'require "insion"; abort "Insion::Client missing" unless defined?(Insion::Client)'

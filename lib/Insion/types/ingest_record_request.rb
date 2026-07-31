@@ -1,0 +1,23 @@
+# frozen_string_literal: true
+
+module Insion
+  module Types
+    module IngestRecordRequest
+      # IngestRecordRequest is an alias for RecordInput
+
+      # @option str [String]
+      #
+      # @return [untyped]
+      def self.load(str)
+        ::JSON.parse(str)
+      end
+
+      # @option value [untyped]
+      #
+      # @return [String]
+      def self.dump(value)
+        ::JSON.generate(value)
+      end
+    end
+  end
+end

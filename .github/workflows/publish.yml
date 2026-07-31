@@ -1,0 +1,66 @@
+name: Publish to RubyGems
+
+on:
+  push:
+    tags:
+      - "v*.*.*"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: publish-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v6
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.3"
+          bundler-cache: true
+
+      - name: Verify release version
+        shell: bash
+        run: |
+          if [[ ! "$GITHUB_REF_NAME" =~ ^v(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)$ ]]; then
+            echo "Release tag must use vMAJOR.MINOR.PATCH." >&2
+            exit 1
+          fi
+          gem_version="$(ruby -e 'print Gem::Specification.load("Insion.gemspec").version')"
+          test "$GITHUB_REF_NAME" = "v$gem_version"
+
+      - name: Lint
+        run: bundle exec rake lint
+
+      - name: Test
+        run: bundle exec rake test
+
+      - name: Build and verify gem
+        run: |
+          mkdir -p pkg
+          gem build Insion.gemspec --output "pkg/insion-${GITHUB_REF_NAME#v}.gem"
+          ruby -rrubygems/package -e '
+            spec = Gem::Package.new(Dir["pkg/*.gem"].fetch(0)).spec
+            abort "unexpected gem name" unless spec.name == "insion"
+            abort "tag does not match gem version" unless "v#{spec.version}" == ENV.fetch("GITHUB_REF_NAME")
+            abort "entrypoint missing" unless spec.files.include?("lib/insion.rb")
+            abort "license missing" unless spec.files.include?("LICENSE.md")
+          '
+          gem install pkg/*.gem --install-dir /tmp/insion-gems --no-document
+          GEM_HOME=/tmp/insion-gems ruby -e 'require "insion"; abort "Insion::Client missing" unless defined?(Insion::Client)'
+
+      - name: Configure RubyGems credentials
+        uses: rubygems/configure-rubygems-credentials@v1.0.0
+
+      - name: Publish gem
+        run: gem push pkg/*.gem

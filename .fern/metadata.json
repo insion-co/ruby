@@ -1,11 +1,13 @@
 {
-  "cliVersion": "5.75.1",
+  "cliVersion": "5.85.0",
   "generatorName": "fernapi/fern-ruby-sdk",
-  "generatorVersion": "1.17.8",
+  "generatorVersion": "1.18.0",
   "generatorConfig": {
-    "moduleName": "InsionClient"
+    "moduleName": "Insion",
+    "omitFernHeaders": true
   },
-  "originGitCommit": "d549a1ae250d149189be58081302356d0f9819c3",
+  "originGitCommit": "35704c1bf6b3c6e1fa3b33971a4753130557ef8e",
   "originGitCommitIsDirty": true,
-  "invokedBy": "manual"
+  "invokedBy": "manual",
+  "requestedVersion": "1.0.1"
 }

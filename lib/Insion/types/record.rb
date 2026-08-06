@@ -9,7 +9,7 @@ module Insion
 
       field :client_url, -> { String }, optional: true, nullable: false, api_name: "clientUrl"
 
-      field :name, -> { String }, optional: false, nullable: false
+      field :name, -> { String }, optional: false, nullable: true
 
       field :entity, -> { String }, optional: false, nullable: false
 

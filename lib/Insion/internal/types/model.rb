@@ -141,13 +141,23 @@ module Insion
           values = Utils.symbolize_keys(values.dup)
 
           self.class.fields.each do |field_name, field|
-            value = values.delete(field.api_name.to_sym) || values.delete(field.api_name) || values.delete(field_name)
+            value = if values.key?(field.api_name.to_sym)
+                      values.delete(field.api_name.to_sym)
+                    elsif values.key?(field.api_name)
+                      values.delete(field.api_name)
+                    elsif values.key?(field_name)
+                      values.delete(field_name)
+                    end
 
-            field_value = value || (if field.literal?
-                                      field.value
-                                    elsif field.default
-                                      field.default
-                                    end)
+            field_value = if value.nil?
+                            if field.literal?
+                              field.value
+                            elsif field.default
+                              field.default
+                            end
+                          else
+                            value
+                          end
 
             @data[field_name] = Utils.coerce(field.type, field_value)
           end

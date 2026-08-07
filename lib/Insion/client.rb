@@ -392,7 +392,7 @@ module Insion
     #
     # @return [void]
     def initialize(token:, base_url: nil, max_retries: 2)
-      @raw_client = Insion::Internal::Http::RawClient.new(
+      @client = Insion::Internal::Http::RawClient.new(
         base_url: base_url || Insion::Environment::DEFAULT,
         headers: {
           Authorization: "Bearer #{token}"

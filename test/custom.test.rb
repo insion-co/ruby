@@ -22,14 +22,14 @@ describe "Insion generator regressions" do
   it "preserves false boolean response values" do
     response = Insion::Types::ListRecordsResponse.load('{"data":[],"has_more":false}')
 
-    assert_equal false, response.has_more
-    assert_equal false, response.to_h["has_more"]
+    refute response.has_more
+    refute response.to_h["has_more"]
   end
 
   it "preserves true boolean response values" do
     response = Insion::Types::ListRecordsResponse.load('{"data":[],"has_more":true}')
 
-    assert_equal true, response.has_more
-    assert_equal true, response.to_h["has_more"]
+    assert response.has_more
+    assert response.to_h["has_more"]
   end
 end

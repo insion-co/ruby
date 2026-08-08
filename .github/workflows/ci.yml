@@ -59,10 +59,10 @@ jobs:
 
       - name: Verify package metadata and contents
         run: |
-          ruby -rrubygems/package -e '
+          ruby -rrubygems/package -r./lib/Insion/version -e '
             spec = Gem::Package.new(Dir["pkg/*.gem"].fetch(0)).spec
             abort "unexpected gem name" unless spec.name == "insion"
-            abort "unexpected gem version" unless spec.version.to_s == "1.0.1"
+            abort "gem version does not match Insion::VERSION" unless spec.version.to_s == Insion::VERSION
             abort "missing MIT license" unless spec.licenses.include?("MIT")
             abort "unexpected homepage" unless spec.homepage == "https://insion.co/docs/sdks/ruby"
             abort "unexpected Ruby requirement" unless spec.required_ruby_version.to_s == ">= 3.3.0"

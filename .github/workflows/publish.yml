@@ -37,7 +37,10 @@ jobs:
             exit 1
           fi
           gem_version="$(ruby -e 'print Gem::Specification.load("Insion.gemspec").version')"
-          test "$GITHUB_REF_NAME" = "v$gem_version"
+          if [[ "$GITHUB_REF_NAME" != "v$gem_version" ]]; then
+            echo "Release tag $GITHUB_REF_NAME does not match gem version $gem_version." >&2
+            exit 1
+          fi
 
       - name: Lint
         run: bundle exec rake lint

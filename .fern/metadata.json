@@ -6,7 +6,8 @@
     "moduleName": "Insion",
     "omitFernHeaders": true
   },
-  "originGitCommit": "b5b88b97d39d97d3d3df51cff3ea6b34d190bd74",
+  "originGitCommit": "63a7eb88bbce4968dc6d66ccc0f8bcc13f91ec39",
   "originGitCommitIsDirty": true,
-  "invokedBy": "manual"
+  "invokedBy": "manual",
+  "requestedVersion": "1.0.4"
 }
